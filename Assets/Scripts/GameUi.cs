@@ -8,7 +8,8 @@ public class GameUi : MonoBehaviour
     private GameStateManager gameStateManager;
     [SerializeField] private Text playerOneScore;
     [SerializeField] private Text playerTwoScore;
-    [SerializeField] private GameObject twistText;
+    [SerializeField] private GameObject playerOneTwist;
+    [SerializeField] private GameObject playerTwoTwist;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,7 @@ public class GameUi : MonoBehaviour
         gameStateManager.OnPlayerScore.AddListener(OnScoreUpdate);
         gameStateManager.OnTwistEvent.AddListener(OnTwistUpdate);
 
-        twistText.SetActive(false);
+        OnTwistUpdate();
     }
     
     private void OnScoreUpdate()
@@ -27,6 +28,7 @@ public class GameUi : MonoBehaviour
 
     private void OnTwistUpdate()
     {
-        twistText.SetActive(true);
+        playerOneTwist.SetActive(gameStateManager.PlayerTwist[PlayerType.PlayerOne]);
+        playerTwoTwist.SetActive(gameStateManager.PlayerTwist[PlayerType.PlayerTwo]);
     }
 }

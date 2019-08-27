@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class GameStateManager : MonoBehaviour
 {
     public Dictionary<PlayerType, int> PlayerScores;
+    public Dictionary<PlayerType, bool> PlayerTwist;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
     public bool TwistState = false;
@@ -29,8 +30,14 @@ public class GameStateManager : MonoBehaviour
 
         if (PlayerScores[playerType] >= 5)
         {
-            OnTwistEvent.Invoke();
+            AddTwist(playerType);
         }
+    }
+
+    public void AddTwist(PlayerType playerType)
+    {
+        PlayerTwist[playerType] = true;
+        OnTwistEvent.Invoke();
     }
 
     private void GameSetup()
@@ -38,6 +45,10 @@ public class GameStateManager : MonoBehaviour
         PlayerScores = new Dictionary<PlayerType, int>();
         PlayerScores.Add(PlayerType.PlayerOne, 0);
         PlayerScores.Add(PlayerType.PlayerTwo, 0);
+
+        PlayerTwist = new Dictionary<PlayerType, bool>();
+        PlayerTwist.Add(PlayerType.PlayerOne, false);
+        PlayerTwist.Add(PlayerType.PlayerTwo, false);
     }
 }
 
