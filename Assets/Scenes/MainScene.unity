@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b10a60606bf96d84d9afe097f81e79c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  playerType: 0
   axis: Vertical
 --- !u!50 &61667420
 Rigidbody2D:
@@ -589,7 +589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92bf642b38beff742a9730dadb00da42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
 --- !u!50 &824315891
 Rigidbody2D:
   serializedVersion: 4
@@ -1112,7 +1111,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  twistThreshold: 1
+  BallSpeed: 30
+  twistThreshold: 5
+  startingSpeed: 30
+  ballSpeedSupercharged: 60
 --- !u!4 &1099454056
 Transform:
   m_ObjectHideFlags: 0
@@ -1222,7 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b10a60606bf96d84d9afe097f81e79c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  playerType: 1
   axis: Vertical2
 --- !u!50 &1122063544
 Rigidbody2D:

@@ -7,9 +7,13 @@ public class GameStateManager : MonoBehaviour
 {
     public Dictionary<PlayerType, int> PlayerScores;
     public Dictionary<PlayerType, bool> PlayerTwist;
+    public Dictionary<PlayerType, float> PlayerSpeed;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
+    public float BallSpeed = 30;
     [SerializeField] private int twistThreshold = 5;
+    [SerializeField] private float startingSpeed = 30;
+    [SerializeField] private float ballSpeedSupercharged = 60;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +24,10 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (PlayerScores[PlayerType.PlayerOne] >= 10 && PlayerScores[PlayerType.PlayerTwo] >= 10)
+        {
+            BallSpeed = ballSpeedSupercharged;
+        }
     }
 
     public void AddScore(PlayerType playerType)
@@ -53,6 +60,10 @@ public class GameStateManager : MonoBehaviour
         PlayerTwist = new Dictionary<PlayerType, bool>();
         PlayerTwist.Add(PlayerType.PlayerOne, false);
         PlayerTwist.Add(PlayerType.PlayerTwo, false);
+
+        PlayerSpeed = new Dictionary<PlayerType, float>();
+        PlayerSpeed.Add(PlayerType.PlayerOne, startingSpeed);
+        PlayerSpeed.Add(PlayerType.PlayerTwo, startingSpeed);
     }
 }
 

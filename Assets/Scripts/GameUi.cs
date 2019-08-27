@@ -10,6 +10,7 @@ public class GameUi : MonoBehaviour
     [SerializeField] private Text playerTwoScore;
     [SerializeField] private GameObject playerOneTwist;
     [SerializeField] private GameObject playerTwoTwist;
+
     // Start is called before the first frame update
     void Start()
     {

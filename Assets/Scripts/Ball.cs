@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float speed = 30;
+    private GameStateManager gameStateManager;
+    private Vector2 startingPoint;
 
     float hitFactor(Vector2 ballPos, Vector2 racketPos, float racketHeight)
     {
@@ -13,8 +14,11 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
+        gameStateManager = FindObjectOfType<GameStateManager>();
+        startingPoint = this.transform.position;
+
         // Initial velocity
-        GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
+        GetComponent<Rigidbody2D>().velocity = Vector2.right * gameStateManager.BallSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -28,7 +32,7 @@ public class Ball : MonoBehaviour
             Vector2 dir = new Vector2(1, y).normalized;
 
             // Set Velocity with dir * speed
-            GetComponent<Rigidbody2D>().velocity = dir * speed;
+            GetComponent<Rigidbody2D>().velocity = dir * gameStateManager.BallSpeed;
         }
 
         if (collision.gameObject.name == "RacketRight")
@@ -40,7 +44,12 @@ public class Ball : MonoBehaviour
             Vector2 dir = new Vector2(-1, y).normalized;
 
             // Set Velocity with dir * speed
-            GetComponent<Rigidbody2D>().velocity = dir * speed;
+            GetComponent<Rigidbody2D>().velocity = dir * gameStateManager.BallSpeed;
         }
+    }
+
+    public void ReturnToStartPosition()
+    {
+        this.transform.position = startingPoint;
     }
 }
