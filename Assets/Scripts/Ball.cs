@@ -35,8 +35,10 @@ public class Ball : MonoBehaviour
         {
             // Calculate hit factor
             float y = hitFactor(transform.position, collision.transform.position, collision.collider.bounds.size.y);
+
             // Calculate direction, make lenght=1 via .normalized
             Vector2 dir = new Vector2(-1, y).normalized;
+
             // Set Velocity with dir * speed
             GetComponent<Rigidbody2D>().velocity = dir * speed;
         }

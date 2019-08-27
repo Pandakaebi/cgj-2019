@@ -8,6 +8,7 @@ public class GameStateManager : MonoBehaviour
     public Dictionary<PlayerType, int> PlayerScores;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
+    public bool TwistState = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +24,13 @@ public class GameStateManager : MonoBehaviour
 
     public void AddScore(PlayerType playerType)
     {
-        PlayerScores[playerType] = PlayerScores[playerType] + 1;
+        PlayerScores[playerType] += 1;
         OnPlayerScore.Invoke();
+
+        if (PlayerScores[playerType] >= 5)
+        {
+            OnTwistEvent.Invoke();
+        }
     }
 
     private void GameSetup()
