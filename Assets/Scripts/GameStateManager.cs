@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
     public Dictionary<PlayerType, bool> PlayerTwist;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
-    public bool TwistState = false;
+    [SerializeField] private int twistThreshold = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -28,15 +28,19 @@ public class GameStateManager : MonoBehaviour
         PlayerScores[playerType] += 1;
         OnPlayerScore.Invoke();
 
-        if (PlayerScores[playerType] >= 5)
+        if (PlayerScores[playerType] >= twistThreshold)
         {
-            AddTwist(playerType);
+            SetTwist(playerType, true);
+        }
+        else
+        {
+            SetTwist(playerType, false);
         }
     }
 
-    public void AddTwist(PlayerType playerType)
+    public void SetTwist(PlayerType playerType, bool active)
     {
-        PlayerTwist[playerType] = true;
+        PlayerTwist[playerType] = active;
         OnTwistEvent.Invoke();
     }
 
