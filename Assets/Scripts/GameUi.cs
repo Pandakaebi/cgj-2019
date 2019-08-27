@@ -14,10 +14,9 @@ public class GameUi : MonoBehaviour
     void Start()
     {
         gameStateManager = FindObjectOfType<GameStateManager>();
+        OnTwistUpdate();
         gameStateManager.OnPlayerScore.AddListener(OnScoreUpdate);
         gameStateManager.OnTwistEvent.AddListener(OnTwistUpdate);
-
-        OnTwistUpdate();
     }
     
     private void OnScoreUpdate()
