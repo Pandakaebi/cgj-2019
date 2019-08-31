@@ -47,6 +47,13 @@ public class PlayerController : MonoBehaviour
                 audioSource.clip = playerHit;
                 audioSource.Play();
             }
+            else if(gameStateManager.PlayerHealth[playerType] <= 0f)
+            {
+                PlayerDamagedEvent.Invoke();
+                gameStateManager.ModifyHealth(playerType, gameStateManager.PlayerDamage);
+                audioSource.clip = playerDestroyed;
+                audioSource.Play();
+            }
             else
             {
                 PlayerDamagedEvent.Invoke();

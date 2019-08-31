@@ -5,6 +5,7 @@ using UnityEngine;
 public class GoalArea : MonoBehaviour
 {
     private GameStateManager gameStateManager;
+    private Ball ball;
     private AudioSource audioSource;
     [SerializeField] private AudioClip goal;
     [SerializeField] private PlayerType playerType;
@@ -14,6 +15,7 @@ public class GoalArea : MonoBehaviour
     void Start()
     {
         gameStateManager = FindObjectOfType<GameStateManager>();
+        ball = FindObjectOfType<Ball>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = goal;
     }
@@ -27,7 +29,7 @@ public class GoalArea : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         gameStateManager.AddScore(playerType);
-        gameStateManager.ModifyHealth(oppositionType, gameStateManager.PlayerDamage);
+        ball.ReturnToStartPosition();
         audioSource.Play();
     }
 }

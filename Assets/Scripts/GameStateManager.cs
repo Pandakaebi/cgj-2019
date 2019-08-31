@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class GameStateManager : MonoBehaviour
 {
-    private Ball ball;
     public Dictionary<PlayerType, int> PlayerScores;
     public Dictionary<PlayerType, bool> PlayerTwist;
     public Dictionary<PlayerType, float> PlayerSpeed;
@@ -27,6 +26,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private AudioClip third;
     private PlayerController playerOne;
     private PlayerController playerTwo;
+    [SerializeField] private int TargetScore = 20;
 
 
     //[SerializeField] private float readonlyPlayerOneSpeed;
@@ -36,7 +36,6 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         GameSetup();
-        ball = FindObjectOfType<Ball>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = first;
         audioSource.Play();
@@ -68,8 +67,6 @@ public class GameStateManager : MonoBehaviour
                 audioSource.Play();
             }
         }
-
-        ball.ReturnToStartPosition();
     }
 
     public void ModifyHealth(PlayerType playerType, int damage)
@@ -112,17 +109,21 @@ public class GameStateManager : MonoBehaviour
 
     private void PlayerOneDamaged()
     {
-        if(PlayerHealth[PlayerType.PlayerOne] <= 0)
+        if(PlayerHealth[PlayerType.PlayerOne] <= 0f)
         {
-            playerOne.DestroyPlayer();
+            //playerOne.DestroyPlayer();
+            AddScore(PlayerType.PlayerTwo);
+            PlayerHealth[PlayerType.PlayerOne] = playerHealthStart;
         }
     }
 
     private void PlayerTwoDamaged()
     {
-        if(PlayerHealth[PlayerType.PlayerTwo] <= 0)
+        if(PlayerHealth[PlayerType.PlayerTwo] <= 0f)
         {
-            playerTwo.DestroyPlayer();
+            //playerTwo.DestroyPlayer();
+            AddScore(PlayerType.PlayerOne);
+            PlayerHealth[PlayerType.PlayerTwo] = playerHealthStart;
         }
     }
 }
