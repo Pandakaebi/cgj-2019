@@ -285,7 +285,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 14acc021bd031f54e9189b3cbb1294a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 569be2b7a3e7c974299af838f92703c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -305,7 +305,7 @@ Transform:
   m_GameObject: {fileID: 61667416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -202.8, y: 1.1, z: 0}
-  m_LocalScale: {x: 9.72, y: 9.72, z: 9.72}
+  m_LocalScale: {x: 20, y: 20, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -1355,12 +1355,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  BallSpeed: 250
-  ballSpeedFast: 350
+  BallSpeed: 300
+  ballSpeedFast: 450
   twistThreshold: 5
-  playerSpeedStart: 250
-  playerSpeedFast: 350
-  playerSpeedSlow: 200
+  playerSpeedStart: 300
+  playerSpeedFast: 400
+  playerSpeedSlow: 225
   playerHealthStart: 100
   PlayerDamage: 20
 --- !u!4 &1099454056
@@ -1435,7 +1435,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 14acc021bd031f54e9189b3cbb1294a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 492dc7eeca127ba40a5929ea9c2b162d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1455,7 +1455,7 @@ Transform:
   m_GameObject: {fileID: 1122063540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 199.2, y: 1.1, z: 0}
-  m_LocalScale: {x: 9.72, y: 9.72, z: 9.72}
+  m_LocalScale: {x: 20, y: 20, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
