@@ -5,29 +5,33 @@ using UnityEngine.Events;
 
 public class GameStateManager : MonoBehaviour
 {
+    private Ball ball;
     public Dictionary<PlayerType, int> PlayerScores;
     public Dictionary<PlayerType, bool> PlayerTwist;
     public Dictionary<PlayerType, float> PlayerSpeed;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
-    public float BallSpeed = 30;
+    public float BallSpeed = 35;
+    [SerializeField] private float ballSpeedFast = 50;
     [SerializeField] private int twistThreshold = 5;
-    [SerializeField] private float startingSpeed = 30;
-    [SerializeField] private float ballSpeedSupercharged = 60;
+    [SerializeField] private float playerSpeedStart = 35;
+    [SerializeField] private float playerSpeedFast = 50;
+    [SerializeField] private float playerSpeedSlow = 20;
+
+    //[SerializeField] private float readonlyPlayerOneSpeed;
+    //[SerializeField] private float readonlyPlayerTwoSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         GameSetup();
+        ball = FindObjectOfType<Ball>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (PlayerScores[PlayerType.PlayerOne] >= 10 && PlayerScores[PlayerType.PlayerTwo] >= 10)
-        {
-            BallSpeed = ballSpeedSupercharged;
-        }
+        //readonlyPlayerOneSpeed = PlayerSpeed[PlayerType.PlayerOne];
+        //readonlyPlayerTwoSpeed = PlayerSpeed[PlayerType.PlayerTwo];
     }
 
     public void AddScore(PlayerType playerType)
@@ -35,19 +39,26 @@ public class GameStateManager : MonoBehaviour
         PlayerScores[playerType] += 1;
         OnPlayerScore.Invoke();
 
-        if (PlayerScores[playerType] >= twistThreshold)
+        // Twist condition
+        if (PlayerScores[playerType] == twistThreshold)
         {
             SetTwist(playerType, true);
         }
-        else
+  
+        if (PlayerTwist[PlayerType.PlayerOne] == true && PlayerTwist[PlayerType.PlayerTwo] == true)
         {
-            SetTwist(playerType, false);
+            BallSpeed = ballSpeedFast;
+            PlayerSpeed[PlayerType.PlayerOne] = playerSpeedFast;
+            PlayerSpeed[PlayerType.PlayerTwo] = playerSpeedFast;
         }
+
+        ball.ReturnToStartPosition();
     }
 
     public void SetTwist(PlayerType playerType, bool active)
     {
         PlayerTwist[playerType] = active;
+        PlayerSpeed[playerType] = playerSpeedSlow;
         OnTwistEvent.Invoke();
     }
 
@@ -62,8 +73,8 @@ public class GameStateManager : MonoBehaviour
         PlayerTwist.Add(PlayerType.PlayerTwo, false);
 
         PlayerSpeed = new Dictionary<PlayerType, float>();
-        PlayerSpeed.Add(PlayerType.PlayerOne, startingSpeed);
-        PlayerSpeed.Add(PlayerType.PlayerTwo, startingSpeed);
+        PlayerSpeed.Add(PlayerType.PlayerOne, playerSpeedStart);
+        PlayerSpeed.Add(PlayerType.PlayerTwo, playerSpeedStart);
     }
 }
 

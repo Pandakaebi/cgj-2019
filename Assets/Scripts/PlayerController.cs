@@ -21,9 +21,6 @@ public class PlayerController : MonoBehaviour
     }
     private void OnScoreUpdate()
     {
-        if (gameStateManager.PlayerScores[playerType] == 5)
-        {
-            gameStateManager.PlayerSpeed[playerType] -= 10;
-        }
+        
     }
 }
