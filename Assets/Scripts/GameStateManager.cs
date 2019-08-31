@@ -45,6 +45,15 @@ public class GameStateManager : MonoBehaviour
         playerTwo.PlayerDamagedEvent.AddListener(PlayerTwoDamaged);
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
+            Debug.Log("Escape pressed!");
+        }
+    }
+
     public void AddScore(PlayerType playerType)
     {
         PlayerScores[playerType] += 1;
