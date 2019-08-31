@@ -29,7 +29,7 @@ public class GoalArea : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         gameStateManager.AddScore(playerType);
-        ball.ReturnToStartPosition();
+        ball.ReturnToStartPosition(true, playerType);
         audioSource.Play();
     }
 }
