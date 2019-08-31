@@ -5,6 +5,8 @@ using UnityEngine;
 public class GoalArea : MonoBehaviour
 {
     private GameStateManager gameStateManager;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip goal;
     [SerializeField] private PlayerType playerType;
     [SerializeField] private PlayerType oppositionType;
 
@@ -12,6 +14,8 @@ public class GoalArea : MonoBehaviour
     void Start()
     {
         gameStateManager = FindObjectOfType<GameStateManager>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = goal;
     }
 
     // Update is called once per frame
@@ -23,6 +27,7 @@ public class GoalArea : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         gameStateManager.AddScore(playerType);
-            gameStateManager.ModifyHealth(oppositionType, gameStateManager.PlayerDamage);
+        gameStateManager.ModifyHealth(oppositionType, gameStateManager.PlayerDamage);
+        audioSource.Play();
     }
 }

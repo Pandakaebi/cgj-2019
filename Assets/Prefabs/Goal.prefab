@@ -71,7 +71,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abf956bdeaf57d4a813b09169b1d037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goal: {fileID: 8300000, guid: 84e2d268c6df96d44ad92577da39629e, type: 3}
   playerType: 0
+  oppositionType: 0
 --- !u!1 &7764828736729759418
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +130,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

@@ -20,6 +20,19 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private float playerSpeedSlow = 20;
     [SerializeField] private int playerHealthStart = 100;
     public int PlayerDamage = 20;
+    private AudioSource audioSource;
+    //[SerializeField] private AudioClip chillLoop;
+    //[SerializeField] private AudioClip chillTransition;
+    //[SerializeField] private AudioClip heavyLoop;
+    //[SerializeField] private AudioClip heavyTransition;
+    //[SerializeField] private AudioClip heavyFastLoop;
+    //[SerializeField] private AudioClip heavyFastTransition;
+    //[SerializeField] private AudioClip introLoop;
+    //[SerializeField] private AudioClip introTransition;
+    [SerializeField] private AudioClip first;
+    [SerializeField] private AudioClip second;
+    [SerializeField] private AudioClip third;
+
 
     //[SerializeField] private float readonlyPlayerOneSpeed;
     //[SerializeField] private float readonlyPlayerTwoSpeed;
@@ -29,6 +42,9 @@ public class GameStateManager : MonoBehaviour
     {
         GameSetup();
         ball = FindObjectOfType<Ball>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = first;
+        audioSource.Play();
     }
 
     void Update()
@@ -53,6 +69,11 @@ public class GameStateManager : MonoBehaviour
             BallSpeed = ballSpeedFast;
             PlayerSpeed[PlayerType.PlayerOne] = playerSpeedFast;
             PlayerSpeed[PlayerType.PlayerTwo] = playerSpeedFast;
+            if (audioSource.clip == first | audioSource.clip == second)
+            {
+                audioSource.clip = third;
+                audioSource.Play();
+            }
         }
 
         ball.ReturnToStartPosition();
@@ -68,6 +89,11 @@ public class GameStateManager : MonoBehaviour
         PlayerTwist[playerType] = active;
         PlayerSpeed[playerType] = playerSpeedSlow;
         OnTwistEvent.Invoke();
+        if (audioSource.clip == first)
+        {
+            audioSource.clip = second;
+            audioSource.Play();
+        }
     }
 
     private void GameSetup()
