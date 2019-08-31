@@ -12,6 +12,7 @@ public class GameStateManager : MonoBehaviour
     public Dictionary<PlayerType, float> PlayerHealth;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
+    public UnityEvent OnHealthUpdate = new UnityEvent();
     public float BallSpeed = 300;
     [SerializeField] private float ballSpeedFast = 450;
     [SerializeField] private int twistThreshold = 5;
@@ -21,17 +22,11 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private float playerHealthStart = 100;
     public int PlayerDamage = 20;
     private AudioSource audioSource;
-    //[SerializeField] private AudioClip chillLoop;
-    //[SerializeField] private AudioClip chillTransition;
-    //[SerializeField] private AudioClip heavyLoop;
-    //[SerializeField] private AudioClip heavyTransition;
-    //[SerializeField] private AudioClip heavyFastLoop;
-    //[SerializeField] private AudioClip heavyFastTransition;
-    //[SerializeField] private AudioClip introLoop;
-    //[SerializeField] private AudioClip introTransition;
     [SerializeField] private AudioClip first;
     [SerializeField] private AudioClip second;
     [SerializeField] private AudioClip third;
+    private PlayerController playerOne;
+    private PlayerController playerTwo;
 
 
     //[SerializeField] private float readonlyPlayerOneSpeed;
@@ -45,12 +40,10 @@ public class GameStateManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = first;
         audioSource.Play();
-    }
-
-    void Update()
-    {
-        //readonlyPlayerOneSpeed = PlayerSpeed[PlayerType.PlayerOne];
-        //readonlyPlayerTwoSpeed = PlayerSpeed[PlayerType.PlayerTwo];
+        playerOne = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>();
+        playerOne.PlayerDamagedEvent.AddListener(PlayerOneDamaged);
+        playerTwo = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>();
+        playerTwo.PlayerDamagedEvent.AddListener(PlayerTwoDamaged);
     }
 
     public void AddScore(PlayerType playerType)
@@ -84,6 +77,8 @@ public class GameStateManager : MonoBehaviour
         PlayerHealth[playerType] -= damage;
     }
 
+
+
     public void SetTwist(PlayerType playerType, bool active)
     {
         PlayerTwist[playerType] = active;
@@ -113,6 +108,22 @@ public class GameStateManager : MonoBehaviour
         PlayerHealth = new Dictionary<PlayerType, float>();
         PlayerHealth.Add(PlayerType.PlayerOne, playerHealthStart);
         PlayerHealth.Add(PlayerType.PlayerTwo, playerHealthStart);
+    }
+
+    private void PlayerOneDamaged()
+    {
+        if(PlayerHealth[PlayerType.PlayerOne] <= 0)
+        {
+            playerOne.DestroyPlayer();
+        }
+    }
+
+    private void PlayerTwoDamaged()
+    {
+        if(PlayerHealth[PlayerType.PlayerTwo] <= 0)
+        {
+            playerTwo.DestroyPlayer();
+        }
     }
 }
 

@@ -10,6 +10,8 @@ public class GameUi : MonoBehaviour
     [SerializeField] private Text playerTwoScore;
     [SerializeField] private Text playerOneTwist;
     [SerializeField] private Text playerTwoTwist;
+    private PlayerController playerOne;
+    private PlayerController playerTwo;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,12 @@ public class GameUi : MonoBehaviour
         OnTwistUpdate();
         gameStateManager.OnPlayerScore.AddListener(OnScoreUpdate);
         gameStateManager.OnTwistEvent.AddListener(OnTwistUpdate);
+        gameStateManager.OnHealthUpdate.AddListener(HealthUpdate);
+        playerOne = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>();
+        playerOne.PlayerDamagedEvent.AddListener(PlayerOneDamaged);
+        playerTwo = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>();
+        playerTwo.PlayerDamagedEvent.AddListener(PlayerTwoDamaged);
+
     }
     
     private void OnScoreUpdate()
@@ -28,7 +36,25 @@ public class GameUi : MonoBehaviour
 
     private void OnTwistUpdate()
     {
+        playerOneTwist.text = gameStateManager.PlayerHealth[PlayerType.PlayerOne].ToString();
         playerOneTwist.gameObject.SetActive(gameStateManager.PlayerTwist[PlayerType.PlayerOne]);
+        playerTwoTwist.text = gameStateManager.PlayerHealth[PlayerType.PlayerTwo].ToString();
         playerTwoTwist.gameObject.SetActive(gameStateManager.PlayerTwist[PlayerType.PlayerTwo]);
+    }
+
+    public void HealthUpdate()
+    {
+        playerOneTwist.text = gameStateManager.PlayerHealth[PlayerType.PlayerOne].ToString();
+        playerTwoTwist.text = gameStateManager.PlayerHealth[PlayerType.PlayerTwo].ToString();
+    }
+
+    private void PlayerOneDamaged()
+    {
+        HealthUpdate();
+    }
+
+    private void PlayerTwoDamaged()
+    {
+        HealthUpdate();   
     }
 }

@@ -16,7 +16,6 @@ public class Wall : MonoBehaviour
         if (collision.gameObject.GetComponent<Ball>() != null)
         {
             audioSource.Play();
-            Debug.Log("Wall collided #audio");
         }
     }
 }
