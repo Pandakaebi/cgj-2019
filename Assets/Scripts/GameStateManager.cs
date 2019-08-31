@@ -9,16 +9,16 @@ public class GameStateManager : MonoBehaviour
     public Dictionary<PlayerType, int> PlayerScores;
     public Dictionary<PlayerType, bool> PlayerTwist;
     public Dictionary<PlayerType, float> PlayerSpeed;
-    public Dictionary<PlayerType, int> PlayerHealth;
+    public Dictionary<PlayerType, float> PlayerHealth;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
-    public float BallSpeed = 35;
-    [SerializeField] private float ballSpeedFast = 50;
+    public float BallSpeed = 300;
+    [SerializeField] private float ballSpeedFast = 450;
     [SerializeField] private int twistThreshold = 5;
-    [SerializeField] private float playerSpeedStart = 35;
-    [SerializeField] private float playerSpeedFast = 50;
-    [SerializeField] private float playerSpeedSlow = 20;
-    [SerializeField] private int playerHealthStart = 100;
+    [SerializeField] private float playerSpeedStart = 300;
+    [SerializeField] private float playerSpeedFast = 400;
+    [SerializeField] private float playerSpeedSlow = 225;
+    [SerializeField] private float playerHealthStart = 100;
     public int PlayerDamage = 20;
     private AudioSource audioSource;
     //[SerializeField] private AudioClip chillLoop;
@@ -110,7 +110,7 @@ public class GameStateManager : MonoBehaviour
         PlayerSpeed.Add(PlayerType.PlayerOne, playerSpeedStart);
         PlayerSpeed.Add(PlayerType.PlayerTwo, playerSpeedStart);
 
-        PlayerHealth = new Dictionary<PlayerType, int>();
+        PlayerHealth = new Dictionary<PlayerType, float>();
         PlayerHealth.Add(PlayerType.PlayerOne, playerHealthStart);
         PlayerHealth.Add(PlayerType.PlayerTwo, playerHealthStart);
     }
