@@ -6,6 +6,7 @@ public class GoalArea : MonoBehaviour
 {
     private GameStateManager gameStateManager;
     [SerializeField] private PlayerType playerType;
+    [SerializeField] private PlayerType oppositionType;
 
     // Start is called before the first frame update
     void Start()
@@ -22,5 +23,6 @@ public class GoalArea : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         gameStateManager.AddScore(playerType);
+            gameStateManager.ModifyHealth(oppositionType, gameStateManager.PlayerDamage);
     }
 }

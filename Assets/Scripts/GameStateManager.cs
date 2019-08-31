@@ -9,6 +9,7 @@ public class GameStateManager : MonoBehaviour
     public Dictionary<PlayerType, int> PlayerScores;
     public Dictionary<PlayerType, bool> PlayerTwist;
     public Dictionary<PlayerType, float> PlayerSpeed;
+    public Dictionary<PlayerType, int> PlayerHealth;
     public UnityEvent OnTwistEvent = new UnityEvent();
     public UnityEvent OnPlayerScore = new UnityEvent();
     public float BallSpeed = 35;
@@ -17,6 +18,8 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private float playerSpeedStart = 35;
     [SerializeField] private float playerSpeedFast = 50;
     [SerializeField] private float playerSpeedSlow = 20;
+    [SerializeField] private int playerHealthStart = 100;
+    public int PlayerDamage = 20;
 
     //[SerializeField] private float readonlyPlayerOneSpeed;
     //[SerializeField] private float readonlyPlayerTwoSpeed;
@@ -55,6 +58,11 @@ public class GameStateManager : MonoBehaviour
         ball.ReturnToStartPosition();
     }
 
+    public void ModifyHealth(PlayerType playerType, int damage)
+    {
+        PlayerHealth[playerType] -= damage;
+    }
+
     public void SetTwist(PlayerType playerType, bool active)
     {
         PlayerTwist[playerType] = active;
@@ -75,6 +83,10 @@ public class GameStateManager : MonoBehaviour
         PlayerSpeed = new Dictionary<PlayerType, float>();
         PlayerSpeed.Add(PlayerType.PlayerOne, playerSpeedStart);
         PlayerSpeed.Add(PlayerType.PlayerTwo, playerSpeedStart);
+
+        PlayerHealth = new Dictionary<PlayerType, int>();
+        PlayerHealth.Add(PlayerType.PlayerOne, playerHealthStart);
+        PlayerHealth.Add(PlayerType.PlayerTwo, playerHealthStart);
     }
 }
 
