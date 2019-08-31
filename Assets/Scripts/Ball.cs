@@ -48,8 +48,20 @@ public class Ball : MonoBehaviour
         }
     }
 
-    public void ReturnToStartPosition()
+    public void ReturnToStartPosition(bool resetVelocity, PlayerType playerType)
     {
         this.transform.position = startingPoint;
+        if(resetVelocity == true)
+        {
+            if (playerType == PlayerType.PlayerOne)
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.left * gameStateManager.BallSpeed;
+            }
+            else if(playerType == PlayerType.PlayerTwo)
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.right * gameStateManager.BallSpeed;
+
+            }
+        }
     }
 }
